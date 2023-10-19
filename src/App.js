@@ -1,17 +1,22 @@
-// src/App.js
 import React from "react";
-import GlobalStyles from "./GlobalStyles";
-import Logo from "./components/Logo";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Shop from "./components/Shop";
 import NavBar from "./components/Navbar";
+import Home from "./components/Home";
+import Info from "./components/Info";
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyles />
-      <Logo />
-      <NavBar />
-      {/* Other components or routes go here */}
-    </div>
+    <Router>
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/info" element={<Info />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

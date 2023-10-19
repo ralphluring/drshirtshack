@@ -20,10 +20,9 @@ const NavLink = styled.a`
 function NavBar() {
   return (
     <StyledNavBar>
-      <NavLink href="#">Home</NavLink>
-      <NavLink href="#">About</NavLink>
-      <NavLink href="#">Shop</NavLink>
-      <NavLink href="#">Contact</NavLink>
+      <NavLink href="/">Home</NavLink>
+      <NavLink href="shop">Shop</NavLink>
+      <NavLink href="info">Info</NavLink>
     </StyledNavBar>
   );
 }
