@@ -4,11 +4,13 @@ import Shop from "./components/Shop";
 import NavBar from "./components/Navbar";
 import Home from "./components/Home";
 import Info from "./components/Info";
+import GlobalStyles from "./GlobalStyles";
 
 function App() {
   return (
     <Router>
       <div>
+        <GlobalStyles />
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
