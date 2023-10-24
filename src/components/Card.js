@@ -1,80 +1,118 @@
-import React, { useState, useRef, useEffect } from "react";
-import { gsap } from "gsap";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import openIconSrc from "../assets/open.svg";
-import closeIconSrc from "../assets/close.svg";
+import { gsap } from "gsap";
+import eyeIcon from "../assets/eye.svg";
 
 const CardWrapper = styled.div`
-  position: relative;
-  width: 300px;
-  border: 1px solid #e0e0e0;
   border-radius: 10px;
+  width: 400px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  perspective: 1000px;
 `;
 
-const CardImage = styled.img`
-  width: 100%;
-  display: block;
+const ImageSection = styled.div`
+  width: 400px;
+  height: 400px;
+  background: url(${(props) => props.imageSrc}) no-repeat center center;
+  background-size: cover;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out;
 `;
 
-const CardContent = styled.div``;
-
-const CardTitle = styled.h3`
-  margin: 0;
+const TextSection = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1em;
-  text-align: center;
-  font-size: 1.2em;
+  color: black;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 `;
 
-const IconButton = styled.button``;
-
-const IconWrapper = styled.svg`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+const LinkSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  color: black;
 `;
 
-const MoreInfoDrawer = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  border-top: 1px solid #e0e0e0;
-  overflow: hidden;
+const EyeIcon = styled.img`
+  width: 50px;
+  height: 50px;
 `;
 
-function CardComponent({ imageSrc, title, moreInfo }) {
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const drawerRef = useRef(null);
+function SimpleCard({ imageSrc, text }) {
+  const iconRef = useRef(null);
+  const imageRef = useRef(null);
+  const textRef = useRef(null);
 
-  useEffect(() => {
-    if (isDrawerOpen) {
-      gsap.to(drawerRef.current, { height: "200px", duration: 0.3 });
-    } else {
-      gsap.to(drawerRef.current, { height: "0px", duration: 0.3 });
-    }
-  }, [isDrawerOpen]);
+  const handleMouseEnterIcon = () => {
+    gsap.to(iconRef.current, {
+      y: -10,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
+
+  const handleMouseLeaveIcon = () => {
+    gsap.to(iconRef.current, {
+      y: 0,
+      duration: 0.7,
+      ease: "bounce.out",
+    });
+  };
 
   return (
     <CardWrapper>
-      {imageSrc && <CardImage src={imageSrc} alt={title} />}
-      <CardContent>
-        {title && <CardTitle>{title}</CardTitle>}
-        {!isDrawerOpen ? (
-          <IconButton onClick={() => setDrawerOpen(true)}>
-            <img src={openIconSrc} alt="Open drawer" />
-          </IconButton>
-        ) : (
-          <IconWrapper>
-            <IconButton onClick={() => setDrawerOpen(false)}>
-              <img src={closeIconSrc} alt="Close drawer" />
-            </IconButton>
-          </IconWrapper>
-        )}
-      </CardContent>
-      <MoreInfoDrawer ref={drawerRef}>{moreInfo}</MoreInfoDrawer>
+      <ImageSection
+        ref={imageRef}
+        imageSrc={imageSrc}
+        onMouseEnter={() => {
+          gsap.to(imageRef.current, {
+            rotationY: 180,
+            duration: 0.5,
+          });
+        }}
+        onMouseLeave={() => {
+          gsap.to(imageRef.current, {
+            rotationY: 0,
+            duration: 0.5,
+          });
+        }}
+      />
+      <TextSection
+        ref={textRef}
+        onMouseEnter={() => {
+          gsap.to(textRef.current, {
+            scale: 1.1,
+            color: "pink",
+            duration: 0.3,
+          });
+        }}
+        onMouseLeave={() => {
+          gsap.to(textRef.current, {
+            scale: 1,
+            color: "black",
+            duration: 0.3,
+          });
+        }}
+      >
+        {text}
+      </TextSection>
+      <LinkSection>
+        <EyeIcon
+          src={eyeIcon}
+          alt="Eye Icon"
+          ref={iconRef}
+          onMouseEnter={handleMouseEnterIcon}
+          onMouseLeave={handleMouseLeaveIcon}
+        />
+      </LinkSection>
     </CardWrapper>
   );
 }
 
-export default CardComponent;
+export default SimpleCard;

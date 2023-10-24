@@ -4,14 +4,14 @@ import styled from "styled-components";
 const StyledNavBar = styled.nav`
   display: flex;
   justify-content: center;
-  background-color: #c05746;
+  background-color: #f5f5f5;
   padding: 10px;
 `;
 
 const NavLink = styled.a`
   margin: 0 15px;
   text-decoration: none;
-  color: #f5f5f5;
+  color: black;
   &:hover {
     text-decoration: underline;
   }

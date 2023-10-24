@@ -6,7 +6,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Staatliches', sans-serif;
-    background-color: f5f5f5; // Or your preferred color
+     background-color: #f5f5f5;
   }
 `;
 
